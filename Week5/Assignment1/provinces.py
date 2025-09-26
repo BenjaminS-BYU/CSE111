@@ -3,6 +3,7 @@ province_list: list[str] = []
 def main() -> None:
     """starts the program creates an empty list that will be updated with every function"""
     
+    # Make the file path known for debugging
     text_file = "C:/Users/baggi/OneDrive - BYU-Pathway Worldwide/Desktop/Coding/BYU/CSE111/Week5/Assignment1/provinces.txt"
     updated_list: list[str] = read_file(text_file)
     updated_list = remove_elements(updated_list)
