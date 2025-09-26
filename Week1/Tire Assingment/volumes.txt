@@ -1,0 +1,10 @@
+For tire 1
+2025-09-04, 205, 60, 15, 39.92
+205, 60, 15, 39.92, $205
+Size: 205/60R15
+The approximate volume is 39.92 liters
+For tire 2
+2025-09-04, 185, 50, 14, 24.09
+185, 50, 14, 24.09, $156
+Size: 185/50R14
+The approximate volume is 24.09 liters
