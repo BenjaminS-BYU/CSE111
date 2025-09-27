@@ -38,12 +38,19 @@ def main():
     4. Cleans the user input using remove_extras(user_input).
     5. Looks up and prints the student information using id_lookup(clean_number, student_dict).
     """
-    file = "students.csv"
-    read_csv_file(file)
-    print(student_dict)
-    user_input = input("What ID do you want to look up? ")
-    clean_number = remove_extras(user_input)
-    print(id_lookup(clean_number, student_dict))
+    while True:
+        file = "students.csv"
+        read_csv_file(file)
+        print(student_dict)
+        user_input = input("What ID do you want to look up? ")
+        clean_number = remove_extras(user_input)
+        print(id_lookup(clean_number, student_dict))
+        again = input("Would you like to search another ID? (y/n): ")
+        if again == "n":
+            print("Goodbye")
+            break
+        else:
+            continue
         
 
 
