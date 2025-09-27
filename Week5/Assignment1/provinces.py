@@ -14,8 +14,6 @@ def main() -> None:
     print(f"\n'Alberta' shows up {count_of_element} times in the updated list.")
     print(f"'AB' shows up {count_of_other} many times in the updated list.")
 
-
-
 def read_file(filename) -> list[str]:
     """Read the file and print out each line into a list on separate elements
     returns the list"""
