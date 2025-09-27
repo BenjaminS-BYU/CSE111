@@ -70,7 +70,7 @@ def call_read_csv_file(filename, key_column_index):
     if length == min_len:
         dictionary = read_csv_file(filename)
     else:
-        dictionary = read_csv_file(filename, key_column_index)
+        dictionary = read_csv_file(filename, key_column_index) # type: ignore
     return dictionary
 
 
