@@ -36,14 +36,14 @@ def main():
     2. Prints the student dictionary (student_dict).
     3. Prompts the user to enter a student ID.
     4. Cleans the user input using remove_extras(user_input).
-    5. Looks up and prints the student information using id_lookup(clean_numbner, student_dict).
+    5. Looks up and prints the student information using id_lookup(clean_number, student_dict).
     """
     file = "students.csv"
     read_csv_file(file)
     print(student_dict)
     user_input = input("What ID do you want to look up? ")
-    clean_numbner = remove_extras(user_input)
-    print(id_lookup(clean_numbner, student_dict))
+    clean_number = remove_extras(user_input)
+    print(id_lookup(clean_number, student_dict))
         
 
 
@@ -51,11 +51,11 @@ def main():
 # and read the other lines of the file into a dictionary. The program must store each student ID Number as a key and each 
 # ID Number name pair or each name as a value in the dictionary.
 def read_csv_file(filename):
-    """Gets the file from the param and opens it and spits the list into a dictonary that was initalized globally"""
+    """Gets the file from the param and opens it and spits the list into a dictionary that was initialized globally"""
     with open(filename) as csv_file:
         # Skip the first row
         next(csv_file)
-        # returns a dictonary
+        # returns a dict
         # Use the csv module to create a reader object
         # that will read from the opened CSV file.
         reader = csv.reader(csv_file)
@@ -68,7 +68,8 @@ def read_csv_file(filename):
     return student_dict
 
 def id_lookup(user_id, dic_name):
-    """Look through the dictonary and find the value that is associated with the key given. Return the value. If key is not in dict, exit the program."""
+    """Look through the dict and find the value that is associated with the key given. 
+    Return the value. If key is not in dict, exit the program."""
     # Get an ID Number from the user, use the ID Number to find the corresponding student name in the dictionary, and print the name.
 
     if user_id in dic_name:
