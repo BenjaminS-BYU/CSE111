@@ -8,10 +8,10 @@ def main() -> None:
     updated_list: list[str] = read_file(text_file)
     updated_list = remove_elements(updated_list)
     updated_list = replace_elements(updated_list, "AB", "Alberta")
-    print(updated_list)
     count_of_element: int = count_element("Alberta", updated_list)
     count_of_other: int = count_element("AB", updated_list)
-    print(f"'Alberta' shows up {count_of_element} times in the updated list.")
+    print(updated_list)
+    print(f"\n'Alberta' shows up {count_of_element} times in the updated list.")
     print(f"'AB' shows up {count_of_other} many times in the updated list.")
 
 
@@ -19,13 +19,16 @@ def main() -> None:
 def read_file(filename) -> list[str]:
     """Read the file and print out each line into a list on separate elements
     returns the list"""
-
-    # Open the file as file
-    with open(filename) as file:
-        # For each line of the file, add it to the global province list
-        for element in file:
-            clean_line: str = element.strip()
-            province_list.append(clean_line)
+    try:
+        # Open the file as file
+        with open(filename) as file:
+            # For each line of the file, add it to the global province list
+            for element in file:
+                clean_line: str = element.strip()
+                province_list.append(clean_line)
+    except FileNotFoundError:
+        print(f"ERROR: File {filename} not found")
+        exit()
     return province_list
 
 def remove_elements(updated_list) -> list[str]:
