@@ -28,6 +28,9 @@ student_dict = {}
 
 # Starts here
 def main():
+    file = "students.csv"
+    read_csv_file(file)
+    print(student_dict)
     """
     Main function to read student data from a CSV file, display the student dictionary,
     prompt the user for a student ID, clean the input, and look up the student information.
@@ -39,9 +42,6 @@ def main():
     5. Looks up and prints the student information using id_lookup(clean_number, student_dict).
     """
     while True:
-        file = "students.csv"
-        read_csv_file(file)
-        print(student_dict)
         user_input = input("What ID do you want to look up? ")
         clean_number = remove_extras(user_input)
         print(id_lookup(clean_number, student_dict))
@@ -52,7 +52,6 @@ def main():
         else:
             continue
         
-
 
 # Open the students.csv file for reading, skip the first line of text in the file because it contains only headings, 
 # and read the other lines of the file into a dictionary. The program must store each student ID Number as a key and each 
@@ -85,8 +84,8 @@ def id_lookup(user_id, dic_name):
     else:
         # If a user enters an ID Number that doesn’t exist in the dictionary, your program must print the message, 
         # "No such student" (without the quotes).
-        print(f"No such student. The id {user_id} isn't in the database, try running the code again and put in a correct id.")
-        exit()
+        print(f"No such student. The id {user_id} isn't in the database.")
+        return ""
 
 def remove_extras(u_input):
     """Takes the user input and runs through the re import to remove any character that isn't an int. 
