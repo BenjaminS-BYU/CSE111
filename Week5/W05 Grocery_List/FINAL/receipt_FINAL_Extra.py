@@ -3,7 +3,7 @@
 # 1. With help from ChatGPT I formatted the receipt nicely and got a way to count down to the sales date
 # 2. Added a return date and count down to it as well
 # 3. Added the buy one get one 50% off. I had it so that if you bought 4, you'd get 2 at a discount. 
-# This was done by all me, so it is a little janky. I am proud of it none the less. 
+# Every even number of item is discounted and added to a list to add up the total saved amount  
 
 # Imports
 from datetime import datetime, timedelta
@@ -17,7 +17,6 @@ VALUE_COLUMN_INDEX = 1
 products_dictionary = {}
 # Buy one Get one 50%
 BOGO = "D083" # D083,1 cup yogurt,0.75
-# If this list is greater than two, call the discount function
 BOGO_dict = {}
 
 
@@ -56,12 +55,15 @@ def main():
                 quantity = int(row[1])
                 name = products_dict[prod_number][0]
                 price = float(products_dict[prod_number][1])
-                subtotal += price * quantity
+                
                 if prod_number in products_dict:
                     # Print the list of ordered items. Include the item name, quantity ordered and price per item.
-                    print(f"{name:<15}{quantity:>5}${price:>10.2f}")
+                    print(f"{name:<15}{quantity:>5}\t${price:>5.2f}")
+                # If the product number matches the discount for BOGO, then add it to the list and print a statement letting 
+                # The user know it was added. This will still show up if the user just wants 1 item, so you could say
+                # Its a little insentive to buy another.
                 if prod_number == BOGO:
-                    print(f"   Buy one get one 50% off: ${price/2:.2f}")
+                    print(f"   BOGO 50% off: \t\t${price/2:.2f}")
                     for i in range(quantity):
                         prod_number_change = prod_number
                         prod_number_change = i + 1
@@ -69,7 +71,7 @@ def main():
                             prod_number_change = len(BOGO_dict) + 1
                         BOGO_dict[prod_number_change] = price
                     continue
-                
+                subtotal += price * quantity
 
             except KeyError as e:
                 print("Error: unknown product ID in the request.csv file")
@@ -78,13 +80,18 @@ def main():
     # Sum and print the subtotal due.
     # Compute and print the sales tax amount. Use 6% as the sales tax rate.
     # Compute and print the total amount due.
-    
+
+    # Add a saved list to add up all the sales prices to then show how much was saved.
+    saved_list = []
+    # Iterate through the dict of items and every even number get the sales price.
     for key in BOGO_dict.keys():
         if key % 2 == 0:
             BOGO_dict[key] = BOGO_dict[key]/2
+            saved_list.append(BOGO_dict[key])
     for value in BOGO_dict.values():
         subtotal += value
-    print(BOGO_dict)
+    total_saved = sum(saved_list)
+
 
     tax = subtotal * SALES_TAX
     total = tax + subtotal
@@ -108,6 +115,7 @@ def main():
             {date}
     Subtotal:       ${subtotal:>8.2f}
     Sales Tax:      ${tax:>8.2f}
+    Total Saved     ${total_saved:>8.2f}
     ----------------------------------------
     TOTAL:          ${total:>8.2f}
     ========================================
