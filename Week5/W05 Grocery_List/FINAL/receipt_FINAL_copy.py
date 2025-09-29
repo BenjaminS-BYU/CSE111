@@ -1,7 +1,7 @@
 # Benjamin Strong Sept. 29th 2025 CSE111
 # Things I added:
 # 1. With help from ChatGPT I formatted the receipt nicely and got a way to count down to the sales date
-# 2. 
+# 2. Added a return date and count down
 
 # Imports
 from datetime import datetime, timedelta
@@ -72,6 +72,8 @@ def main():
 
     # Returns are due in 7 days from now, we don't like dilly dallying
     return_date = datetime.now() + timedelta(days=7)
+    # Return days left plus 1 to account for the day bought
+    return_days_left = (return_date - datetime.now() ).days + 1
     
     # Prints a receipt format
     receipt = f"""
@@ -90,8 +92,8 @@ def main():
             Only {days_left} days left!
     ========================================
             Thank you for shopping!
-    You have 7 days to return any returnable items
-            return items by: {return_date.strftime("%Y-%m-%d")} 
+    You have {return_days_left} days to return any returnable items
+        return items by: {return_date.strftime("%Y-%m-%d")} 9:00pm 
 ===================================================
     """
     print(receipt)
