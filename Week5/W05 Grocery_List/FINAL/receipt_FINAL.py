@@ -61,7 +61,6 @@ def main():
     tax = subtotal * SALES_TAX
     total = tax + subtotal
     date = datetime.now().strftime('%a %b %d %H:%M:%S %Y')  # Wed Nov 04 05:10:30 2020
-    sale_date = datetime.now().strftime('%a %b %d %H:%M:%S %Y')
     print(f"""
 Subtotal: ${subtotal:.2f}
 Sales tax: ${tax:.2f} 

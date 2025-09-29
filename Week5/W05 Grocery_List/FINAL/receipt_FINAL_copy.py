@@ -1,5 +1,5 @@
 # Imports
-from datetime import datetime
+from datetime import datetime, timedelta
 import csv
 # Define some globals
 SALES_TAX = 0.06
@@ -61,14 +61,31 @@ def main():
     tax = subtotal * SALES_TAX
     total = tax + subtotal
     date = datetime.now().strftime('%a %b %d %H:%M:%S %Y')  # Wed Nov 04 05:10:30 2020
-    sale_date = datetime.now().strftime('%a %b %d %H:%M:%S %Y')
-    print(f"""
-Subtotal: ${subtotal:.2f}
-Sales tax: ${tax:.2f} 
-Total: ${total:.2f}
-Thank you for shopping at Some Frills Included.
-{date}          
-    """)
+
+    # Sales date: 30 days from now
+    sale_date = datetime.now() + timedelta(days=30)
+    days_left = (sale_date - datetime.now()).days
+    
+    # Prints a receipt format
+    receipt = f"""
+    ========================================
+            Some Frills Included
+    ========================================
+    Date: {date}
+
+    Subtotal:       ${subtotal:>8.2f}
+    Sales Tax:      ${tax:>8.2f}
+    ----------------------------------------
+    TOTAL:          ${total:>8.2f}
+    ========================================
+        Next Sale: {sale_date.strftime("%Y-%m-%d")}
+        Only {days_left} days left!
+    ========================================
+        Thank you for shopping!
+    ========================================
+    """
+    print(receipt)
+    
 
 def read_dictionary(filename, key_column_index):
     """open a CSV file for reading and use a csv.reader to 
