@@ -2,7 +2,8 @@
 # Things I added:
 # 1. With help from ChatGPT I formatted the receipt nicely and got a way to count down to the sales date
 # 2. Added a return date and count down to it as well
-# 3. 
+# 3. Added the buy one get one 50% off. I had it so that if you bought 4, you'd get 2 at a discount. 
+# This was done by all me, so it is a little janky. I am proud of it none the less. 
 
 # Imports
 from datetime import datetime, timedelta
@@ -14,6 +15,7 @@ REQUEST_CSV = "request.csv"
 KEY_COLUMN_INDEX = 0
 VALUE_COLUMN_INDEX = 1
 products_dictionary = {}
+# Buy one Get one 50%
 BOGO = "D083" # D083,1 cup yogurt,0.75
 # If this list is greater than two, call the discount function
 BOGO_dict = {}
@@ -55,17 +57,20 @@ def main():
                 name = products_dict[prod_number][0]
                 price = float(products_dict[prod_number][1])
                 subtotal += price * quantity
-                
-                if prod_number == BOGO:
-                    for i in range(quantity):
-                        prod_number_change = prod_number
-                        prod_number_change = i
-                        BOGO_dict[prod_number_change] = price
-                    
                 if prod_number in products_dict:
                     # Print the list of ordered items. Include the item name, quantity ordered and price per item.
-                    print(f"{name:<15}{quantity:>5}{price:>10.2f}")
+                    print(f"{name:<15}{quantity:>5}${price:>10.2f}")
+                if prod_number == BOGO:
+                    print(f"   Buy one get one 50% off: ${price/2:.2f}")
+                    for i in range(quantity):
+                        prod_number_change = prod_number
+                        prod_number_change = i + 1
+                        if prod_number_change in BOGO_dict:
+                            prod_number_change = len(BOGO_dict) + 1
+                        BOGO_dict[prod_number_change] = price
+                    continue
                 
+
             except KeyError as e:
                 print("Error: unknown product ID in the request.csv file")
                 print(e)
@@ -73,7 +78,14 @@ def main():
     # Sum and print the subtotal due.
     # Compute and print the sales tax amount. Use 6% as the sales tax rate.
     # Compute and print the total amount due.
+    
+    for key in BOGO_dict.keys():
+        if key % 2 == 0:
+            BOGO_dict[key] = BOGO_dict[key]/2
+    for value in BOGO_dict.values():
+        subtotal += value
     print(BOGO_dict)
+
     tax = subtotal * SALES_TAX
     total = tax + subtotal
     date = datetime.now().strftime('%a %b %d %H:%M:%S %Y')  # Wed Nov 04 05:10:30 2020
@@ -94,7 +106,6 @@ def main():
     ========================================
     Date: 
             {date}
-
     Subtotal:       ${subtotal:>8.2f}
     Sales Tax:      ${tax:>8.2f}
     ----------------------------------------
