@@ -3,8 +3,8 @@ from datetime import datetime
 import csv
 # Define some globals
 SALES_TAX = 0.06
-PRODUCTS_CSV = "C:/Users/baggi/OneDrive - BYU-Pathway Worldwide/Desktop/Coding/BYU/CSE111/Week5/W05 Grocery_List/products.csv"
-REQUEST_CSV = "C:/Users/baggi/OneDrive - BYU-Pathway Worldwide/Desktop/Coding/BYU/CSE111/Week5/W05 Grocery_List/request.csv"
+PRODUCTS_CSV = "products.csv"
+REQUEST_CSV = "request.csv"
 KEY_COLUMN_INDEX = 0
 VALUE_COLUMN_INDEX = 1
 products_dictionary = {}
