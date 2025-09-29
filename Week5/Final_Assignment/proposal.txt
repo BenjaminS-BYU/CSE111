@@ -1,0 +1,91 @@
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+
+    Calorie Tracker Elite
+
+2. What real-world problem will your program address or help to solve?
+
+    I am trying to lose weight and I want my own program to help me track my calories
+    also to provide me with some quotes to motivate me
+
+3. What will you learn from developing this program?
+
+    I will learn a lot about using dictonaries and I might try and put this into tkinter and give it some ui 
+    I will also learn about user data and how to store user data on a given day
+    if the day updates to a new day, we will overwrite the contents of the exisiting 
+    file just for ease 
+
+4. What Python modules will your program use?
+
+    (Some examples are: csv, datetime, functools, matplotlib, math,
+    pandas, pytest, random, requests, and tkinter.)
+
+    math
+    datetime
+    pytest
+    csv
+
+5. List the names of functions you will need?
+
+    add_food(food_name, calories, log)
+    updates the log created when the user starts a new day
+
+    view_log(log)
+    shows you the running log 
+
+    calculate_total_calories(log)
+    calculates the logs total calories
+
+    save_log(filename, log)
+    saves data to the log so that when the program closes it will save
+
+    quote_generator(filename)
+    this will cycle through a list of quotes in a txt file and spits it out 
+    to the user at the top of the program to motivate
+
+    change_quote()
+    have it so the user can change the quote if they want to 
+
+    add_quote()
+    You can add your own quote to the file as well
+
+    (Remember that the most reusable functions don't get user input and
+    don't print results but instead have parameters and return a result.
+    Functions that get user input and print results are important and do
+    useful work but are not easily reusable.)
+
+    (Remember also that it's hard to test functions that get user input
+    and print results. It's easy to test functions that don't get user
+    input and don't print results but instead have parameters and return
+    a result. Therefore, you should write most of your program functions
+    to have parameters and return a result.)
+
+6. List the names of the test functions you will write.
+
+    test_add_food_entry()
+    Check that adding an entry updates the log.
+
+    test_calculate_total_calories()
+    Confirm totals are correct with known data.
+
+    test_check_remaining()
+    Make sure it calculates remaining calories properly against a goal.
+
+    test_remove_entry()
+    Ensure deleting works as expected.
+
+    
+
+
+I believe this will be chalenging for me becaue it involves a lot of data manipulation and file access. I will also need to 
+change things based off of the date. I am excited to start this!
