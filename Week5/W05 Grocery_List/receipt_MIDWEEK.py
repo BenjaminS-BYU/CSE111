@@ -33,7 +33,7 @@ def main():
             prod_number = row[0]
             quantity = row[1]
             if prod_number in products_dict:
-                print(f"{products_dict[prod_number][0]}: {quantity} @ {products_dict[prod_number][1]}")
+                print(f"{products_dict[prod_number][0]}: {quantity} @ ${products_dict[prod_number][1]}")
 
 def read_dictionary(filename, key_column_index) -> dict:
     """open a CSV file for reading and use a csv.reader to 
