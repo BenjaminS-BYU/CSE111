@@ -1,3 +1,8 @@
+# Benjamin Strong Sept. 29th 2025 CSE111
+# Things I added:
+# 1. With help from ChatGPT I formatted the receipt nicely and got a way to count down to the sales date
+# 2. 
+
 # Imports
 from datetime import datetime, timedelta
 import csv
@@ -12,9 +17,6 @@ products_dictionary = {}
 
 
 def main():
-    # Print a store name (you choose the name) at the top of the receipt.
-    # Print the store name
-    print("Some Frills Included")
     # Call the read_dictionary function, store the returned 
     # dictionary in the variable products_dict. Display the dictionary.
     try:
@@ -35,9 +37,11 @@ def main():
 
         
         # Uses a loop to read and processes each row from the request.csv file.
-        print("Requested items:\n") 
         reader = csv.reader(request_file)
         subtotal = 0
+        print("\n==================== RECEIPT ====================")
+        print(f"{'Item':<15}{'Qty':>5}{'Price':>10}")
+        print("-" * 40)
         for row in reader:
         # Within the body of the loop, your program must do the following for each row:
             # Use the requested product number to find the corresponding item in the products_dict.
@@ -50,7 +54,7 @@ def main():
                 
                 if prod_number in products_dict:
                     # Print the list of ordered items. Include the item name, quantity ordered and price per item.
-                    print(f"{name}: {quantity} @ ${price}")
+                    print(f"{name:<15}{quantity:>5}{price:>10.2f}")
             except KeyError as e:
                 print("Error: unknown product ID in the request.csv file")
                 print(e)
@@ -65,24 +69,30 @@ def main():
     # Sales date: 30 days from now
     sale_date = datetime.now() + timedelta(days=30)
     days_left = (sale_date - datetime.now()).days
+
+    # Returns are due in 7 days from now, we don't like dilly dallying
+    return_date = datetime.now() + timedelta(days=7)
     
     # Prints a receipt format
     receipt = f"""
     ========================================
             Some Frills Included
     ========================================
-    Date: {date}
+    Date: 
+            {date}
 
     Subtotal:       ${subtotal:>8.2f}
     Sales Tax:      ${tax:>8.2f}
     ----------------------------------------
     TOTAL:          ${total:>8.2f}
     ========================================
-        Next Sale: {sale_date.strftime("%Y-%m-%d")}
-        Only {days_left} days left!
+            Next Sale: {sale_date.strftime("%Y-%m-%d")}
+            Only {days_left} days left!
     ========================================
-        Thank you for shopping!
-    ========================================
+            Thank you for shopping!
+    You have 7 days to return any returnable items
+            return items by: {return_date.strftime("%Y-%m-%d")} 
+===================================================
     """
     print(receipt)
     
