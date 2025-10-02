@@ -8,6 +8,7 @@ Quote of the day:
     4. Change Quote
     5. Exit
 
+dis gud
 
     Add Food:
     What food would you like to add? Apple
