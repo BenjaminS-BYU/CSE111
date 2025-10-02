@@ -52,15 +52,20 @@ add_food(food,listtxt):
 list on a txt file"""
 
 2. Remove Food:
-remove_food(food,list):
+remove_food(food,_list):
 """This function takes the food prama and take it out of 
 the list txt file from the days list"""
 
 3. Show Food:
-show_food(list):
+show_food(_list):
 """This shows the list txt that holds the food added"""
 
 4. Change Quote: 
 change_quote():
 """goes into the quote txt and picks a random quote to show"""
 
+5. Change the look of the users input:
+format_input(user_input):
+"""This function takes the users input like '  Apple  ' 
+and standardizes it to to strip it and lower case it and 
+returns the outcome 'apple'"""
