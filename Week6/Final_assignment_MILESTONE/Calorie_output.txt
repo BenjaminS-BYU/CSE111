@@ -1,0 +1,9 @@
+Quote of the day:
+"This is the quote"
+===================
+    Menu:
+    1. Add Food
+    2. Remove Food
+    3. Look at Added Food
+    4. Change Quote
+    5. Exit
