@@ -9,6 +9,38 @@ Quote of the day:
     5. Exit
 
 
+    Add Food:
+    What food would you like to add? Apple
+    How many grams? 100
+
+    Apple -- 100g -- 52kal: Added
+
+    Remove Food:
+    Today's food:
+    1. Apple  ...... Added at 9:50am
+    2. Banana ...... Added at 10am
+
+    What food would you like to remove? 2
+
+    'Banana' has been removed from today's food
+
+    Today's food:
+    1. Apple ...... Added at 9:50am
+
+    Your Food:
+    ---Food Added Today---
+    1. Apple   ...... Added at 9:50am
+    2. Banana  ...... Added at 10am
+    3. Noodles ...... Added at 12am
+
+(For foods not in the database)
+    Add Food:
+    What food would you like to add? Donut
+    How many grams? 100
+    how many kal/g? 434
+
+    Donut -- 100g -- 52kal: Added
+
 functions:
 0. main():
 """This function holds the print statements and the main 
