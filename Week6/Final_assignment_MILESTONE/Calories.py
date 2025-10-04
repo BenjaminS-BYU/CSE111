@@ -8,8 +8,8 @@ date is diffrent."""
 FOOD_DICT = "common_foods_with_mealplan.csv"
 DAILY_FOOD = "daily_food_calories.txt"
 QUOTES_TXT = "motivational_weight_loss_quotes.txt"
-FOOD_NAME_INDEX = 0
-FOOD_CAL_PER_100_INDEX = 1
+KEY_INDEX = 0
+VALUE_INDEX = 1
 food_dict = {}
 quote_dict = {}
 
@@ -61,8 +61,8 @@ def motivation_dict_maker(txt_file):
 
         for line in file:
             seperate_line = line.split(".")
-            key = seperate_line[0]
-            quote = seperate_line[1]
+            key = seperate_line[KEY_INDEX]
+            quote = seperate_line[VALUE_INDEX]
             quote_dict[key] = quote
     return quote_dict
 
@@ -74,8 +74,8 @@ def food_dict_maker(csv_file):
         reader = csv.reader(food_file_csv)
 
         for line in reader:
-            key = line[FOOD_NAME_INDEX]
-            value = line[FOOD_CAL_PER_100_INDEX]
+            key = line[KEY_INDEX]
+            value = line[VALUE_INDEX]
 
             food_dict[key] = value
 
