@@ -39,7 +39,8 @@ Menu:
             exit()
         elif users_choice == "1":
             food = input("What food would you like to add? ")
-            add_food(food,food_dict_csv)
+            fomatted_user = format_input(food)
+            add_food(fomatted_user,food_dict_csv)
         elif users_choice == "2":
             pass
         elif users_choice == "3":
@@ -103,8 +104,7 @@ def format_input(user_input):
     """This function takes the users input like '  apple  ' 
 and standardizes it to to strip it and upper case it and 
 returns the outcome 'Apple'"""
-    pass
-
+    return user_input.strip().capitalize()
 
 
 # For testing purposes don't call main when testing
