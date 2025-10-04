@@ -27,13 +27,14 @@ def main():
         print("""Welcome to the calorie tracking program. Please pick from the following:
 
 Menu:
-1. Add Food
-2. Remove Food
-3. Your Food
-4. Change Quote
-5. Exit
+1. Add Food (Not working yet)
+2. Remove Food (Not working yet)
+3. Your Food (Not working yet)
+4. Change Quote (Working)
+5. Exit (Working)
     """)
         users_choice = input("Your choice: ")
+        
         if users_choice == "5":
             print("Have a great day!")
             exit()
