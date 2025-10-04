@@ -1,9 +1,9 @@
 import datetime
 import csv
-import math
 import random
 """This program is aimed at helping people track their calorie intake from a list of foods and new foods they add. This program will let you add food, remove food, look at a quote for motivation 
-and will calculate the total caloric intake for that day."""
+and will calculate the total caloric intake for that day and add the users input into an empty txt file that empties if the 
+date is diffrent."""
 
 FOOD_DICT = "common_foods_with_mealplan.csv"
 DAILY_FOOD = "daily_food_calories.txt"
@@ -34,7 +34,7 @@ Menu:
 5. Exit (Working)
     """)
         users_choice = input("Your choice: ")
-        
+
         if users_choice == "5":
             print("Have a great day!")
             exit()
