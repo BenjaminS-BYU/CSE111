@@ -6,14 +6,16 @@ and will calculate the total caloric intake for that day."""
 
 FOOD_DICT = "common_foods_with_mealplan.csv"
 DAILY_FOOD = "daily_food_calories.txt"
+QUOTES_TXT = "motivational_weight_loss_quotes.txt"
 FOOD_NAME_INDEX = 0
 FOOD_CAL_PER_100_INDEX = 1
 food_dict = {}
 
 def main():
     food_dict_csv = food_dict_maker(FOOD_DICT)
+    quotes_list = motivation_dict_maker(QUOTES_TXT)
 
-    quote: str = get_quote()
+    quote: str = get_quote(quotes_list)
     print("="*(len(quote)))
     print(quote)
     print("="*(len(quote)))
@@ -44,10 +46,32 @@ Menu:
         else:
             print("Input not valid, please try again")
             continue
-    
+
+def motivation_dict_maker(txt_file):
+    with open(txt_file) as file:
+        next(file)
+
+        for line in file:
+            num = line[0]
+            quote = line[1]
+
+
+
+
 def food_dict_maker(csv_file):
     """Takes in the list given from the csv file and returns a dictionary"""
-    pass
+    with open(csv_file) as food_file_csv:
+        next(food_file_csv)
+
+        reader = csv.reader(food_file_csv)
+
+        for line in reader:
+            key = line[FOOD_NAME_INDEX]
+            value = line[FOOD_CAL_PER_100_INDEX]
+
+            food_dict[key] = value
+
+    return food_dict
 
 def add_food(food, food_file):
     """This function will allow the user to add a food to the 
@@ -63,7 +87,7 @@ def show_food(food_file):
     """This shows the list txt that holds the food added"""
     pass
 
-def get_quote() -> str:
+def get_quote(quotes_list) -> str:
     """goes into the quote txt and picks a random quote to show"""
     return "You got this!"
 
