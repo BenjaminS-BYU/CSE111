@@ -5,11 +5,14 @@ import random
 and will calculate the total caloric intake for that day and add the users input into an empty txt file that empties if the 
 date is diffrent."""
 
+# Consts
 FOOD_DICT = "common_foods_with_mealplan.csv"
 DAILY_FOOD = "daily_food_calories.txt"
 QUOTES_TXT = "motivational_weight_loss_quotes.txt"
 KEY_INDEX = 0
 VALUE_INDEX = 1
+
+# Global dicts
 food_dict = {}
 quote_dict = {}
 
