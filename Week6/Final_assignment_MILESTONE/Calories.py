@@ -100,9 +100,9 @@ def get_quote(quotes):
         
 
 def format_input(user_input):
-    """This function takes the users input like '  Apple  ' 
-and standardizes it to to strip it and lower case it and 
-returns the outcome 'apple'"""
+    """This function takes the users input like '  apple  ' 
+and standardizes it to to strip it and upper case it and 
+returns the outcome 'Apple'"""
     pass
 
 
