@@ -15,9 +15,10 @@ VALUE_INDEX = 1
 # Global dicts
 food_dict = {}
 quote_dict = {}
+daily_dict = {}
 
 def main():
-    food_dict_maker(FOOD_DICT)
+    food_dict_maker(FOOD_DICT,food_dict)
     quotes_dict = motivation_dict_maker(QUOTES_TXT)
     todays_date(DAILY_FOOD)
 
@@ -33,7 +34,7 @@ def main():
 Menu:
 1. Add Food (Working)
 2. Remove Food (Not working yet)
-3. Your Food (Not working yet)
+3. Your Food (working)
 4. Change Quote (Working)
 5. Exit (Working)
     """)
@@ -50,7 +51,14 @@ Menu:
         elif users_choice == "2":
             pass
         elif users_choice == "3":
-            pass
+            total_cals = 0
+            food_dict_maker(DAILY_FOOD,daily_dict)
+            print("Your foods for the day:\n")
+            for key, value in daily_dict.items():
+                print(f"{key}: {value}kals")
+                total_cals += float(value)
+            print(f"Total calories for today is {total_cals:.2f}")
+
         elif users_choice == "4":
             quote= get_quote(quotes_dict)
             continue
@@ -71,7 +79,7 @@ def motivation_dict_maker(txt_file):
             quote_dict[key] = quote
     return quote_dict
 
-def food_dict_maker(csv_file):
+def food_dict_maker(csv_file, _dict):
     """Takes in the list given from the csv file and returns a dictionary"""
     with open(csv_file) as food_file_csv:
         next(food_file_csv)
@@ -82,9 +90,9 @@ def food_dict_maker(csv_file):
             key = line[KEY_INDEX]
             value = line[VALUE_INDEX]
 
-            food_dict[key] = value
+            _dict[key] = value
 
-    return food_dict
+    return _dict
 
 def todays_date(food_file):
     """This function overwrite the existing food file if the date has changed"""
@@ -113,14 +121,9 @@ list of a txt file"""
         calories = int(input("What are the calories per 100 grams? "))
         grams = int(input("How many grams? "))
     total_cals = (calories/100)*grams
-    num_lines = 0
-    try:
-        with open(food_file, "r") as daily_food_read:
-            num_lines = sum(1 for _ in daily_food_read)
-    except FileNotFoundError:
-        num_lines = 1
+   
     with open(food_file, "a") as daily_food:
-        daily_food.write(f"{num_lines}, {grams}, {food}, {total_cals}\n")
+        daily_food.write(f"{food}, {total_cals}\n")
     return f"{food} was add to the daily list."
 
 
