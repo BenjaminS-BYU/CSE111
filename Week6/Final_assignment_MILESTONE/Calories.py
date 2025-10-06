@@ -3,7 +3,7 @@ import csv
 import random
 """This program is aimed at helping people track their calorie intake from a list of foods and new foods they add. This program will let you add food, remove food, look at a quote for motivation 
 and will calculate the total caloric intake for that day and add the users input into an empty txt file that empties if the 
-date is diffrent."""
+date is different."""
 
 # Consts
 FOOD_DICT = "common_foods_with_mealplan.csv"
@@ -23,7 +23,7 @@ def main():
     todays_date(DAILY_FOOD)
 
     quote= get_quote(quotes_dict)
-    
+
 
     while True:
         print("="*(len(quote)))
@@ -45,26 +45,18 @@ Menu:
             exit()
         elif users_choice == "1":
             food = input("What food would you like to add? ")
-            fomatted_user = format_input(food)
-            print(add_food(fomatted_user,DAILY_FOOD))
+            formatted_user = format_input(food)
+            add_food(formatted_user,DAILY_FOOD)
 
         elif users_choice == "2":
             pass
         elif users_choice == "3":
-            total_cals = 0
-            food_dict_maker(DAILY_FOOD,daily_dict)
-            print("Your foods for the day:\n")
-            for key, value in daily_dict.items():
-                print(f"{key}: {value}kals")
-                total_cals += float(value)
-            print(f"Total calories for today is {total_cals:.2f}")
-
+            show_food(users_choice)
         elif users_choice == "4":
             quote= get_quote(quotes_dict)
-            continue
         else:
             print("Input not valid, please try again")
-            continue
+            
 
 def motivation_dict_maker(txt_file):
     """This function takes a txt file such as the quotes and turns it into a dict with the numbers as keys and 
@@ -118,23 +110,39 @@ list of a txt file"""
         grams = int(input("What are the grams? "))
         calories = float(food_dict[food])
     else:
-        calories = int(input("What are the calories per 100 grams? "))
-        grams = int(input("How many grams? "))
+        confirm = input(f"Are you sure you want to add {food}? (y/n): ").lower()
+        if confirm == "n":
+            return ""
+        elif confirm == "y":
+            calories = int(input("What are the calories per 100 grams? "))
+            grams = int(input("How many grams? "))
+        else:
+            print("Input not supported")
+            return ""
     total_cals = (calories/100)*grams
    
     with open(food_file, "a") as daily_food:
         daily_food.write(f"{food}, {total_cals}\n")
-    return f"{food} was add to the daily list."
+    print(f"{food} was add to the daily list.")
 
 
+# WORK ON THIS
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
 the list txt file from the days list"""
     pass
 
-def show_food(food_file):
+def show_food(users_choice):
     """This shows the list txt that holds the food added"""
-    pass
+    total_cals = 0
+    food_dict_maker(DAILY_FOOD,daily_dict)
+    print("Your foods for the day:\n")
+    for key, value in daily_dict.items():
+        print(f"{key}: {value}kals")
+        total_cals += float(value)
+    print(f"Total calories for today is {total_cals:.2f}kals\n")
+    
+
 
 def get_quote(quotes):
     """goes into the quote txt and picks a random quote to show"""
