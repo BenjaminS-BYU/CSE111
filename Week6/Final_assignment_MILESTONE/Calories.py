@@ -49,15 +49,15 @@ Menu:
             food = input("What food would you like to add? ")
             formatted_user = format_input(food)
             if formatted_user in food_dict:
-                grams = int(input("What are the grams? "))
+                grams = float(input("What are the grams? "))
                 calories = float(food_dict[formatted_user])
             else:
                 confirm = input(f"Are you sure you want to add {formatted_user}? (y/n): ").lower()
                 if confirm == "n":
                     continue
                 elif confirm == "y":
-                    calories = int(input("What are the calories per 100 grams? "))
-                    grams = int(input("How many grams did you have? "))
+                    calories = float(input("What are the calories per 100 grams? "))
+                    grams = float(input("How many grams did you have? "))
                     add_food(FOOD_DICT,formatted_user,calories, "known foods")
                 else:
                     print("Input not supported")
@@ -66,7 +66,10 @@ Menu:
             add_food(DAILY_FOOD,formatted_user,total_cals, "daily foods")
 
         elif users_choice == "2":
-            pass
+            show_food()
+            rmv_food = input("Which food item would you like to remove? ").capitalize()
+            remove_food(rmv_food,DAILY_FOOD)
+            show_food()
 
         elif users_choice == "3":
             show_food()
@@ -76,7 +79,7 @@ Menu:
 
         else:
             print("Input not valid, please try again")
-            
+
 
 def motivation_dict_maker(txt_file):
     """This function takes a txt file such as the quotes and turns it into a dict with the numbers as keys and 
@@ -135,7 +138,23 @@ list of a csv file"""
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
 the list txt file from the days list"""
-    pass
+    for line in list(daily_dict.keys()):
+        if line == food:
+            del daily_dict[line]
+    try:
+        with open(food_file, "r", newline="" ) as food_list:
+            rows = list(csv.reader(food_list))
+
+        rows = [row for row in rows if row[0] != food]
+
+        with open(food_file, "w", newline='') as food_list:
+            writer = csv.writer(food_list)
+            writer.writerows(rows)
+
+        print(f"{food} was removed.")
+            
+    except FileNotFoundError:
+        print("File not found")
 
 def show_food():
     """This shows the list txt that holds the food added"""
@@ -145,7 +164,7 @@ def show_food():
     for key, value in daily_dict.items():
         print(f"{key}: {value}kals")
         total_cals += float(value)
-    print(f"Total calories for today is {total_cals:.2f}kals\n")
+    print(f"Total calories for today is {total_cals}kals\n")
     
 
 
