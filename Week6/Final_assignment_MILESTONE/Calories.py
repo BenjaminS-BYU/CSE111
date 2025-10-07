@@ -42,33 +42,38 @@ Menu:
 
         if users_choice == "5":
             print("Have a great day!")
+            print(get_quote(quotes_dict))
             exit()
+
         elif users_choice == "1":
             food = input("What food would you like to add? ")
             formatted_user = format_input(food)
-            if food in food_dict:
+            if formatted_user in food_dict:
                 grams = int(input("What are the grams? "))
-                calories = float(food_dict[food])
+                calories = float(food_dict[formatted_user])
             else:
-                confirm = input(f"Are you sure you want to add {food}? (y/n): ").lower()
+                confirm = input(f"Are you sure you want to add {formatted_user}? (y/n): ").lower()
                 if confirm == "n":
                     continue
                 elif confirm == "y":
                     calories = int(input("What are the calories per 100 grams? "))
-                    grams = int(input("How many grams? "))
-                    add_food(FOOD_DICT,food,calories, "known foods")
+                    grams = int(input("How many grams did you have? "))
+                    add_food(FOOD_DICT,formatted_user,calories, "known foods")
                 else:
                     print("Input not supported")
                     continue
             total_cals = (calories/100)*grams
-            add_food(DAILY_FOOD,food,total_cals, "daily foods")
+            add_food(DAILY_FOOD,formatted_user,total_cals, "daily foods")
 
         elif users_choice == "2":
             pass
+
         elif users_choice == "3":
-            show_food(users_choice)
+            show_food()
+
         elif users_choice == "4":
             quote= get_quote(quotes_dict)
+
         else:
             print("Input not valid, please try again")
             
@@ -123,7 +128,7 @@ def add_food(food_file, food, total_cals, name_list):
 list of a csv file"""
     with open(food_file, "a") as food_file:
         food_file.write(f"{food}, {total_cals}\n")
-    print(f"{food} was add to the {name_list}.")
+    print(f"{food} was add to the {name_list} list.")
 
 
 # WORK ON THIS
@@ -132,7 +137,7 @@ def remove_food(food, food_file):
 the list txt file from the days list"""
     pass
 
-def show_food(users_choice):
+def show_food():
     """This shows the list txt that holds the food added"""
     total_cals = 0
     food_dict_maker(DAILY_FOOD,daily_dict)
@@ -146,13 +151,14 @@ def show_food(users_choice):
 
 def get_quote(quotes):
     """goes into the quote txt and picks a random quote to show"""
-    num = str(random.randint(1,102))
-    return f"{quotes[num]}!"
+    num = str(random.randint(1,len(quotes)))
+    quote = quotes[num]
+    return f"{quote.strip()}!"
         
 
 def format_input(user_input):
     """This function takes the users input like '  apple  ' 
-and standardizes it to to strip it and upper case it and 
+and standardizes it to to strip it and capitalizes it and 
 returns the outcome 'Apple'"""
     return user_input.strip().capitalize()
 
