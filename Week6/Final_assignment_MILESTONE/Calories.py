@@ -25,12 +25,12 @@ def main():
     todays_date(DAILY_FOOD)
 
     quote= get_quote(quotes_dict)
+    print("="*(len(quote)))
+    print(quote)
+    print("="*(len(quote)))
 
     # Loops through the users inputs untill they exit the program 
     while True:
-        print("="*(len(quote)))
-        print(quote)
-        print("="*(len(quote)))
         print("""Welcome to the calorie tracking program. Please pick from the following:
 
 Menu:
@@ -46,7 +46,9 @@ Menu:
         # If 5, provide an exit quote and exit out completley
         if users_choice == "5":
             print("Have a great day!")
+            print("="*(len(get_quote(quotes_dict))))
             print(get_quote(quotes_dict))
+            print("="*(len(get_quote(quotes_dict))))
             exit()
 
         # Add food if 1
@@ -152,7 +154,7 @@ def add_food(food_file, food, total_cals, name_list):
     """This function will allow the user to add a food and its calories to the 
 list of a csv file"""
     with open(food_file, "a") as food_file:
-        food_file.write(f"{food}, {total_cals}\n")
+        food_file.write(f"{food}, {total_cals:.1f}\n")
     print(f"{food} was add to the {name_list} list.")
 
 
@@ -186,6 +188,10 @@ def show_food():
     max_value = max(len(str(value)) for value in daily_dict.values())
     print("Your foods for the day:\n")
     for key, value in daily_dict.items():
+        if key == key:
+            key += "1"
+### ADD HERE A WAY TO MAKE SURE ALL CASE OF THE SAME KEY BECOMES UNIQUE, LIKE IF THERE IS THREE PEACHES ON THE LIST
+
         print(f"{key:<{max_key}} : {value:>{max_value}} kals")
         total_cals += float(value)
     print(f"\nTotal calories for today is {total_cals}kals\n")
