@@ -18,13 +18,15 @@ quote_dict = {}
 daily_dict = {}
 
 def main():
+    """Gets the main inputs from the user and prints the results
+    Also holds the main loop"""
     food_dict_maker(FOOD_DICT,food_dict)
     quotes_dict = motivation_dict_maker(QUOTES_TXT)
     todays_date(DAILY_FOOD)
 
     quote= get_quote(quotes_dict)
 
-
+    # Loops through the users inputs untill they exit the program 
     while True:
         print("="*(len(quote)))
         print(quote)
@@ -32,29 +34,37 @@ def main():
         print("""Welcome to the calorie tracking program. Please pick from the following:
 
 Menu:
-1. Add Food (Working)
-2. Remove Food (working)
-3. Your Food (working)
-4. Change Quote (Working)
-5. Exit (Working)
+1. Add Food 
+2. Remove Food 
+3. Your Food 
+4. Change Quote 
+5. Exit 
     """)
+        # Ask user for their choice
         users_choice = input("Your choice: ")
 
+        # If 5, provide an exit quote and exit out completley
         if users_choice == "5":
             print("Have a great day!")
             print(get_quote(quotes_dict))
             exit()
 
+        # Add food if 1
         elif users_choice == "1":
             food = input("What food would you like to add? ")
             formatted_user = format_input(food)
+
+            # Check if in known list already
             if formatted_user in food_dict:
                 grams = float(input("What are the grams? "))
                 calories = float(food_dict[formatted_user])
+
+            # If food is not, confirm they want to add it 
             else:
                 confirm = input(f"Are you sure you want to add {formatted_user}? (y/n): ").lower()
                 if confirm == "n":
                     continue
+                # If yes then continue to add the grams and calories
                 elif confirm == "y":
                     calories = float(input("What are the calories per 100 grams? "))
                     grams = float(input("How many grams did you have? "))
@@ -62,9 +72,11 @@ Menu:
                 else:
                     print("Input not supported")
                     continue
+            # Calculate the total calories given from the grams
             total_cals = (calories/100)*grams
             add_food(DAILY_FOOD,formatted_user,total_cals, "daily foods")
 
+        # If 2 start to remove a food item
         elif users_choice == "2":
             show_food()
             rmv_food = input("Which food item would you like to remove? ")
@@ -72,14 +84,23 @@ Menu:
             remove_food(formatted_rvm,DAILY_FOOD)
             show_food()
 
+        # If 3 just show the list of foods
         elif users_choice == "3":
             show_food()
 
+        # If 4 change the quote 
         elif users_choice == "4":
             quote= get_quote(quotes_dict)
 
+        # If they typed anything else, just restart
         else:
             print("Input not valid, please try again")
+            # Buffer area so the user isn't just blasted with info
+            enter = input("Enter to continue ")
+            if enter == "":
+                continue
+            else:
+                continue
 
 
 def motivation_dict_maker(txt_file):
@@ -161,13 +182,18 @@ def show_food():
     """This shows the list txt that holds the food added"""
     total_cals = 0
     food_dict_maker(DAILY_FOOD,daily_dict)
+    max_key = max(len(key) for key in daily_dict)
+    max_value = max(len(str(value)) for value in daily_dict.values())
     print("Your foods for the day:\n")
     for key, value in daily_dict.items():
-        print(f"{key}: {value}kals")
+        print(f"{key:<{max_key}} : {value:>{max_value}} kals")
         total_cals += float(value)
-    print(f"Total calories for today is {total_cals}kals\n")
-    enter = input("Hit enter to continue ")
+    print(f"\nTotal calories for today is {total_cals}kals\n")
+    # Buffer area so the user isn't just blasted with info
+    enter = input("Enter to continue ")
     if enter == "":
+        return
+    else:
         return
 
 
