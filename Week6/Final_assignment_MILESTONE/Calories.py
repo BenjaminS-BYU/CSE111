@@ -33,7 +33,7 @@ def main():
 
 Menu:
 1. Add Food (Working)
-2. Remove Food (Not working yet)
+2. Remove Food (working)
 3. Your Food (working)
 4. Change Quote (Working)
 5. Exit (Working)
@@ -67,8 +67,9 @@ Menu:
 
         elif users_choice == "2":
             show_food()
-            rmv_food = input("Which food item would you like to remove? ").capitalize()
-            remove_food(rmv_food,DAILY_FOOD)
+            rmv_food = input("Which food item would you like to remove? ")
+            formatted_rvm = format_input(rmv_food)
+            remove_food(formatted_rvm,DAILY_FOOD)
             show_food()
 
         elif users_choice == "3":
@@ -165,7 +166,10 @@ def show_food():
         print(f"{key}: {value}kals")
         total_cals += float(value)
     print(f"Total calories for today is {total_cals}kals\n")
-    
+    enter = input("Hit enter to continue ")
+    if enter == "":
+        return
+
 
 
 def get_quote(quotes):
