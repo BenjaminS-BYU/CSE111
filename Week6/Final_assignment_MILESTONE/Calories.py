@@ -46,7 +46,22 @@ Menu:
         elif users_choice == "1":
             food = input("What food would you like to add? ")
             formatted_user = format_input(food)
-            add_food(formatted_user,DAILY_FOOD)
+            if food in food_dict:
+                grams = int(input("What are the grams? "))
+                calories = float(food_dict[food])
+            else:
+                confirm = input(f"Are you sure you want to add {food}? (y/n): ").lower()
+                if confirm == "n":
+                    continue
+                elif confirm == "y":
+                    calories = int(input("What are the calories per 100 grams? "))
+                    grams = int(input("How many grams? "))
+                    add_food(FOOD_DICT,food,calories, "known foods")
+                else:
+                    print("Input not supported")
+                    continue
+            total_cals = (calories/100)*grams
+            add_food(DAILY_FOOD,food,total_cals, "daily foods")
 
         elif users_choice == "2":
             pass
@@ -103,27 +118,12 @@ def todays_date(food_file):
     
 
 
-def add_food(food, food_file):
-    """This function will allow the user to add a food to the 
-list of a txt file"""
-    if food in food_dict:
-        grams = int(input("What are the grams? "))
-        calories = float(food_dict[food])
-    else:
-        confirm = input(f"Are you sure you want to add {food}? (y/n): ").lower()
-        if confirm == "n":
-            return ""
-        elif confirm == "y":
-            calories = int(input("What are the calories per 100 grams? "))
-            grams = int(input("How many grams? "))
-        else:
-            print("Input not supported")
-            return ""
-    total_cals = (calories/100)*grams
-   
-    with open(food_file, "a") as daily_food:
-        daily_food.write(f"{food}, {total_cals}\n")
-    print(f"{food} was add to the daily list.")
+def add_food(food_file, food, total_cals, name_list):
+    """This function will allow the user to add a food and its calories to the 
+list of a csv file"""
+    with open(food_file, "a") as food_file:
+        food_file.write(f"{food}, {total_cals}\n")
+    print(f"{food} was add to the {name_list}.")
 
 
 # WORK ON THIS
