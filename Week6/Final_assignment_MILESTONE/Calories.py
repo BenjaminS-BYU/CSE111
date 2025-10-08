@@ -114,9 +114,9 @@ def motivation_dict_maker(txt_file):
         next(file)
 
         for line in file:
-            seperate_line = line.split(".")
-            key = seperate_line[KEY_INDEX]
-            quote = seperate_line[VALUE_INDEX]
+            separate_line = line.split(".")
+            key = separate_line[KEY_INDEX]
+            quote = separate_line[VALUE_INDEX]
             quote_dict[key] = quote
     return quote_dict
 
