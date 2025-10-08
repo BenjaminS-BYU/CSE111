@@ -29,7 +29,7 @@ def main():
     print(quote)
     print("="*(len(quote)))
 
-    # Loops through the users inputs untill they exit the program 
+    # Loops through the users inputs until they exit the program 
     while True:
         print("""Welcome to the calorie tracking program. Please pick from the following:
 
@@ -43,7 +43,7 @@ Menu:
         # Ask user for their choice
         users_choice = input("Your choice: ")
 
-        # If 5, provide an exit quote and exit out completley
+        # If 5, provide an exit quote and exit out completely
         if users_choice == "5":
             print("Have a great day!")
             print("="*(len(get_quote(quotes_dict))))
