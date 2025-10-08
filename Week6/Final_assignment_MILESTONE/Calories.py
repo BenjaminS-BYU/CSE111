@@ -25,17 +25,18 @@ def main():
     todays_date(DAILY_FOOD)
 
     quote= get_quote(quotes_dict)
-    print("="*(len(quote)))
-    print(quote)
-    print("="*(len(quote)))
+    
 
     # Loops through the users inputs until they exit the program 
     while True:
+        print("="*(len(quote)))
+        print(quote)
+        print("="*(len(quote)))
         print("""Welcome to the calorie tracking program. Please pick from the following:
 
 Menu:
 1. Add Food 
-2. Remove Food 
+2. Remove Food (Not Working)
 3. Your Food 
 4. Change Quote 
 5. Exit 
@@ -46,9 +47,10 @@ Menu:
         # If 5, provide an exit quote and exit out completely
         if users_choice == "5":
             print("Have a great day!")
-            print("="*(len(get_quote(quotes_dict))))
-            print(get_quote(quotes_dict))
-            print("="*(len(get_quote(quotes_dict))))
+            end_quote = get_quote(quotes_dict)
+            print("="*(len(end_quote)))
+            print(end_quote)
+            print("="*(len(end_quote)))
             exit()
 
         # Add food if 1
@@ -161,7 +163,7 @@ def add_food(food_file, food, total_cals, name_list):
 
     # Step 2: append the new entry
     with open(food_file, "a") as f:
-        f.write(f"{file_size}{food},{total_cals:.1f}\n")
+        f.write(f"{food}{file_size},{total_cals:.1f}\n")
 
     print(f"{food} was added to the {name_list} list.")
 
@@ -175,21 +177,32 @@ the list txt file from the days list"""
         _reader = csv.reader(_food_file)
 
         for line in _reader:
-            if line[0] == food:
+            first_index = line[0]
+            if first_index == food:
                 print("here it is boss")
+
+
 
 def show_food():
     """This shows the list txt that holds the food added. For each item in the dict, add a unique number to the name 
     to account for duplicates"""
     daily_list = []
     total_cals = 0
-    csv_to_list(DAILY_FOOD,daily_list)
-    max_first_index = max(len(first_index) for first_index in daily_list[0])
-    max_1_index = max(len(str(value)) for value in daily_list[1])
+    _list = csv_to_list(DAILY_FOOD,daily_list)
+
+    mx_key = 0
+    mx_value = 0
+
+    for line in _list:
+        if len(line[0]) > mx_key:
+            mx_key = len(line[0])
+    for line in _list:
+        if len(line[1]) > mx_value:
+            mx_value = len(line[1])
+
     print("Your foods for the day:\n")
     for first_index, snd_index in daily_list:
-
-        print(f"{first_index:<{max_first_index}} : {snd_index:>{max_1_index}} kals")
+        print(f"{first_index:<{mx_key}} : {snd_index:>{mx_value}} kals")
         total_cals += float(snd_index)
     print(f"\nTotal calories for today is {total_cals:.1f}kals\n")
     # Buffer area so the user isn't just blasted with info
@@ -201,7 +214,7 @@ def show_food():
 
 
 def csv_to_list(csv_file, _list):
-    """This funtion takes a csv file and returns out a list"""
+    """This function takes a csv file and returns out a list"""
     with open(csv_file) as food_file_csv:
         next(food_file_csv)
 
