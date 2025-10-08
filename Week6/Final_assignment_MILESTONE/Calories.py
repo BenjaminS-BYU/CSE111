@@ -15,7 +15,7 @@ VALUE_INDEX = 1
 # Global dicts
 food_dict = {}
 quote_dict = {}
-daily_dict = {}
+
 
 def main():
     """Gets the main inputs from the user and prints the results
@@ -151,56 +151,66 @@ def todays_date(food_file):
 
 
 def add_food(food_file, food, total_cals, name_list):
-    """This function will allow the user to add a food and its calories to the 
-list of a csv file"""
-    with open(food_file, "a") as food_file:
-        food_file.write(f"{food}, {total_cals:.1f}\n")
-    print(f"{food} was add to the {name_list} list.")
+    """Adds a food and its calories to the CSV file with a unique number."""
+    # Step 1: count how many lines are already in the file
+    try:
+        with open(food_file, "r") as f:
+            file_size = sum(1 for _ in f)
+    except FileNotFoundError:
+        file_size = 0  # file doesn't exist yet
+
+    # Step 2: append the new entry
+    with open(food_file, "a") as f:
+        f.write(f"{file_size}{food},{total_cals:.1f}\n")
+
+    print(f"{food} was added to the {name_list} list.")
+
 
 
 # WORK ON THIS
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
 the list txt file from the days list"""
-    for line in list(daily_dict.keys()):
-        if line == food:
-            del daily_dict[line]
-    try:
-        with open(food_file, "r", newline="" ) as food_list:
-            rows = list(csv.reader(food_list))
+    with open(food_file, "r") as _food_file:
+        _reader = csv.reader(_food_file)
 
-        rows = [row for row in rows if row[0] != food]
-
-        with open(food_file, "w", newline='') as food_list:
-            writer = csv.writer(food_list)
-            writer.writerows(rows)
-
-        print(f"{food} was removed.")
-            
-    except FileNotFoundError:
-        print("File not found")
+        for line in _reader:
+            if line[0] == food:
+                print("here it is boss")
 
 def show_food():
-    """This shows the list txt that holds the food added"""
+    """This shows the list txt that holds the food added. For each item in the dict, add a unique number to the name 
+    to account for duplicates"""
+    daily_list = []
     total_cals = 0
-    food_dict_maker(DAILY_FOOD,daily_dict)
-    max_key = max(len(key) for key in daily_dict)
-    max_value = max(len(str(value)) for value in daily_dict.values())
+    csv_to_list(DAILY_FOOD,daily_list)
+    max_first_index = max(len(first_index) for first_index in daily_list[0])
+    max_1_index = max(len(str(value)) for value in daily_list[1])
     print("Your foods for the day:\n")
-    for key, value in daily_dict.items():
-        if key == key:
-            key += "1"
-### ADD HERE A WAY TO MAKE SURE ALL CASE OF THE SAME KEY BECOMES UNIQUE, LIKE IF THERE IS THREE PEACHES ON THE LIST
+    for first_index, snd_index in daily_list:
 
-        print(f"{key:<{max_key}} : {value:>{max_value}} kals")
-        total_cals += float(value)
-    print(f"\nTotal calories for today is {total_cals}kals\n")
+        print(f"{first_index:<{max_first_index}} : {snd_index:>{max_1_index}} kals")
+        total_cals += float(snd_index)
+    print(f"\nTotal calories for today is {total_cals:.1f}kals\n")
     # Buffer area so the user isn't just blasted with info
     enter = input("Enter to continue ")
     if enter == "":
         return
     else:
         return
+
+
+def csv_to_list(csv_file, _list):
+    """This funtion takes a csv file and returns out a list"""
+    with open(csv_file) as food_file_csv:
+        next(food_file_csv)
+
+        reader = csv.reader(food_file_csv)
+
+        for line in reader:
+            _list.append(line)
+
+    return _list
 
 
 
