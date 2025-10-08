@@ -83,7 +83,7 @@ Menu:
         # If 2 start to remove a food item
         elif users_choice == "2":
             show_food()
-            rmv_food = input("Which food item would you like to remove? ")
+            rmv_food = input("Which food item would you like to remove? ex. 'peach' ")
             formatted_rvm = format_input(rmv_food)
             remove_food(formatted_rvm,DAILY_FOOD)
             show_food()
