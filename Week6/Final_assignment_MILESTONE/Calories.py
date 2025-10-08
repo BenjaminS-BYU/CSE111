@@ -24,6 +24,7 @@ def main():
     quotes_dict = motivation_dict_maker(QUOTES_TXT)
     todays_date(DAILY_FOOD)
 
+
     quote= get_quote(quotes_dict)
     
 
@@ -36,7 +37,7 @@ def main():
 
 Menu:
 1. Add Food 
-2. Remove Food
+2. Remove Food (NOT WORKING)
 3. Your Food 
 4. Change Quote 
 5. Exit 
@@ -72,13 +73,14 @@ Menu:
                 elif confirm == "y":
                     calories = float(input("What are the calories per 100 grams? "))
                     grams = float(input("How many grams did you have? "))
-                    add_food(FOOD_DICT,formatted_user,calories, "known foods")
+                    with open(FOOD_DICT, "a", newline='') as _known_foods:
+                        _known_foods.write(f"{food}, {calories:.1f}\n")
                 else:
                     print("Input not supported")
                     continue
             # Calculate the total calories given from the grams
-            total_cals = (calories/100)*grams
-            add_food(DAILY_FOOD,formatted_user,total_cals, "daily foods")
+            total_cals = float((calories/100)*grams)
+            add_food(DAILY_FOOD,formatted_user,float(total_cals), "daily foods")
 
         # If 2 start to remove a food item
         elif users_choice == "2":
@@ -129,7 +131,7 @@ def food_dict_maker(csv_file, _dict):
 
         for line in reader:
             key = line[KEY_INDEX]
-            value = line[VALUE_INDEX]
+            value = float(line[VALUE_INDEX])
 
             _dict[key] = value
 
@@ -149,27 +151,19 @@ def todays_date(food_file):
     if first_line != formatted_date:
         with open(food_file, "w") as daily_food:
             daily_food.write(f"{formatted_date}\n")
-    
+
+
 
 
 def add_food(food_file, food, total_cals, name_list):
-    """Adds a food and its calories to the CSV file with a unique number."""
-    # Step 1: count how many lines are already in the file
-    try:
-        with open(food_file, "r") as f:
-            file_size = sum(1 for _ in f)
-    except FileNotFoundError:
-        file_size = 0  # file doesn't exist yet
+    """This function will allow the user to add a food and its calories to the 
+list of a csv file"""
+    code = random.randint(999, 10000)
+    with open(food_file, "a", newline='') as food_file:
+        food_file.write(f"{code},{food},{total_cals:.1f}\n")
+    print(f"{food} was add to the {name_list} list.")
 
-    # Step 2: append the new entry
-    with open(food_file, "a") as f:
-        f.write(f"{food}{file_size},{total_cals:.1f}\n")
-
-    print(f"{food} was added to the {name_list} list.")
-
-
-
-# WORK ON THIS
+### STILL NOT WORKING
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
 the list txt file from the food_file"""
@@ -208,7 +202,7 @@ def show_food():
             mx_value = len(line[1])
 
     print("Your foods for the day:\n")
-    for first_index, snd_index in daily_list:
+    for code, first_index, snd_index in daily_list:
         print(f"{first_index:<{mx_key}} : {snd_index:>{mx_value}} kals")
         total_cals += float(snd_index)
     print(f"\nTotal calories for today is {total_cals:.1f}kals\n")
