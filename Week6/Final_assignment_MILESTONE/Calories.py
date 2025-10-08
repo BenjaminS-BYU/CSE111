@@ -36,7 +36,7 @@ def main():
 
 Menu:
 1. Add Food 
-2. Remove Food (Not Working)
+2. Remove Food
 3. Your Food 
 4. Change Quote 
 5. Exit 
@@ -172,14 +172,21 @@ def add_food(food_file, food, total_cals, name_list):
 # WORK ON THIS
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
-the list txt file from the days list"""
-    with open(food_file, "r") as _food_file:
+the list txt file from the food_file"""
+
+    rows_to_keep = []
+    with open(food_file, "r", newline='') as _food_file:
         _reader = csv.reader(_food_file)
 
-        for line in _reader:
-            first_index = line[0]
-            if first_index == food:
-                print("here it is boss")
+        for row in _reader:
+            if row and row[0] != food:
+                rows_to_keep.append(row)
+            else:
+                print(f"Removed '{food}' from the list.")
+    
+    with open(food_file, "w", newline='') as _food_file:
+        writer = csv.writer(_food_file)
+        writer.writerows(rows_to_keep)
 
 
 
