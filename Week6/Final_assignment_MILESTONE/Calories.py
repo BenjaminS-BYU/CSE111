@@ -163,6 +163,7 @@ list of a csv file"""
         food_file.write(f"{code},{food},{total_cals:.1f}\n")
     print(f"{food} was add to the {name_list} list.")
 
+
 ### STILL NOT WORKING
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
@@ -191,19 +192,12 @@ def show_food():
     total_cals = 0
     _list = csv_to_list(DAILY_FOOD,daily_list)
 
-    mx_key = 0
-    mx_value = 0
-
-    for line in _list:
-        if len(line[0]) > mx_key:
-            mx_key = len(line[0])
-    for line in _list:
-        if len(line[1]) > mx_value:
-            mx_value = len(line[1])
+    max_name_len = max(len(line[1]) for line in _list)
+    max_cal_len = max(len(line[2]) for line in _list)
 
     print("Your foods for the day:\n")
     for code, first_index, snd_index in daily_list:
-        print(f"{first_index:<{mx_key}} : {snd_index:>{mx_value}} kals")
+        print(f"{first_index:<{max_name_len}} : {snd_index:<{max_cal_len}} kals")
         total_cals += float(snd_index)
     print(f"\nTotal calories for today is {total_cals:.1f}kals\n")
     # Buffer area so the user isn't just blasted with info
