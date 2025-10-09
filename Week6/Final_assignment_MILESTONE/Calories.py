@@ -1,7 +1,8 @@
 from datetime import datetime
 import csv
 import random
-"""This program is aimed at helping people track their calorie intake from a list of foods and new foods they add. This program will let you add food, remove food, look at a quote for motivation 
+"""This program is aimed at helping people track their calorie intake from a list of foods and new foods they add. 
+This program will let you add food, remove food, look at a quote for motivation 
 and will calculate the total caloric intake for that day and add the users input into an empty txt file that empties if the 
 date is different."""
 
@@ -13,26 +14,29 @@ KEY_INDEX = 0
 VALUE_INDEX = 1
 
 # Global dicts
-food_dict = {}
-quote_dict = {}
+food_dict = {} # This dict will hold the known foods and their calories
+quote_dict = {} # This dict will hold the quotes
 
 
 def main():
     """Gets the main inputs from the user and prints the results
     Also holds the main loop"""
-    food_dict_maker(FOOD_DICT,food_dict)
-    quotes_dict = motivation_dict_maker(QUOTES_TXT)
+
+    food_dict_maker(FOOD_DICT,food_dict) # Fills the food dict with known foods
+    quotes_dict = motivation_dict_maker(QUOTES_TXT) # Fills the quote dict with quotes
+    # Check if the date has changed and if so, overwrite the daily food file
     todays_date(DAILY_FOOD)
 
 
-    quote= get_quote(quotes_dict)
+    quote= get_quote(quotes_dict) # Gets a random quote to start the program
     
 
     # Loops through the users inputs until they exit the program 
     while True:
+        print("="*(len(quote))) # Print a line the length of the quote
+        print(quote) # Print the quote
         print("="*(len(quote)))
-        print(quote)
-        print("="*(len(quote)))
+        # Welcome message and menu
         print("""Welcome to the calorie tracking program. Please pick from the following:
 
 Menu:
@@ -102,7 +106,7 @@ Menu:
         else:
             print("Input not valid, please try again")
             # Buffer area so the user isn't just blasted with info
-            enter = input("Enter to continue ")
+            enter = input("Enter to continue... ")
             if enter == "":
                 continue
             else:
@@ -140,15 +144,17 @@ def food_dict_maker(csv_file, _dict):
 def todays_date(food_file):
     """This function overwrite the existing food file if the date has changed"""
     today = datetime.today()
-    formatted_date = today.strftime("%Y, %d, %m")
+    formatted_date = today.strftime("%Y, %d, %m") # Year, Day, Month
 
+    # Read the first line of the file to see if the date is the same
     try:
         with open(food_file, "r") as daily_food_read:
             first_line = daily_food_read.readline().strip()
     except FileNotFoundError:
         first_line = ""
 
-    if first_line != formatted_date:
+    # If the date is different, overwrite the file
+    if first_line != formatted_date: 
         with open(food_file, "w") as daily_food:
             daily_food.write(f"{formatted_date}\n")
 
@@ -158,18 +164,19 @@ def todays_date(food_file):
 def add_food(food_file, food, total_cals, name_list):
     """This function will allow the user to add a food and its calories to the 
 list of a csv file"""
-    code = random.randint(999, 10000)
+    code = random.randint(999, 10000) # Random code to identify the food uniqueley
     with open(food_file, "a", newline='') as food_file:
+        # Append the code, food and its calories to the file
         food_file.write(f"{code},{food},{total_cals:.1f}\n")
     print(f"{food} was add to the {name_list} list.")
 
 
 
 def remove_food(food, food_file):
-    """This function takes the food prama and take it out of 
-the list csv file from the food_file"""
-    temp_list = []
-    with open(food_file) as food_file_csv:
+    """This function will remove a food from the csv file by making a temp list of the csv file contents,
+    removing the food from the temp list and rewriting the csv file with the temp list"""
+    temp_list = [] 
+    with open(food_file) as food_file_csv: # Read the csv file into a temp list
         reader = csv.reader(food_file_csv)
         for line in reader:
             temp_list.append(line)
@@ -178,7 +185,7 @@ the list csv file from the food_file"""
             temp_list.remove(line)
             print(f"{food} was removed from the daily foods list.")
             break
-    with open(food_file, "w", newline='') as food_file_csv:
+    with open(food_file, "w", newline='') as food_file_csv: # Rewrite the csv file with the temp list without the removed food
         writer = csv.writer(food_file_csv)
         writer.writerows(temp_list) 
 
@@ -188,22 +195,23 @@ the list csv file from the food_file"""
 
 
 def show_food():
-    """This shows the list txt that holds the food added. For each item in the dict, add a unique number to the name 
-    to account for duplicates"""
-    daily_list = []
-    total_cals = 0
+    """This shows the list txt that holds the food added. It also calculates the total calories for the day"""
+    daily_list = [] # This list will hold the foods added for the day
+    total_cals = 0 # This will hold the total calories for the day
+    # Read the daily food file into a list
     _list = csv_to_list(DAILY_FOOD,daily_list)
 
-    max_name_len = max(len(line[1]) for line in _list)
-    max_cal_len = max(len(line[2]) for line in _list)
+    max_name_len = max(len(line[1]) for line in _list) # Find the longest food name for formatting purposes
+    max_cal_len = max(len(line[2]) for line in _list) # Find the longest calorie count for formatting purposes
 
     print("Your foods for the day:\n")
+    # Print the foods in a formatted way without the codes
     for code, first_index, snd_index in daily_list:
         print(f"{first_index:<{max_name_len}} : {snd_index:<{max_cal_len}} kals")
         total_cals += float(snd_index)
     print(f"\nTotal calories for today is {total_cals:.1f}kals\n")
     # Buffer area so the user isn't just blasted with info
-    enter = input("Enter to continue ")
+    enter = input("Enter to continue... ")
     if enter == "":
         return
     else:
@@ -211,12 +219,13 @@ def show_food():
 
 
 def csv_to_list(csv_file, _list):
-    """This function takes a csv file and returns out a list"""
+    """This function takes in a csv file and returns a list of its contents"""
     with open(csv_file) as food_file_csv:
         next(food_file_csv)
 
-        reader = csv.reader(food_file_csv)
+        reader = csv.reader(food_file_csv) # Read the csv file into a list
 
+        # Append each line to the list
         for line in reader:
             _list.append(line)
 
@@ -226,16 +235,15 @@ def csv_to_list(csv_file, _list):
 
 def get_quote(quotes):
     """goes into the quote txt and picks a random quote to show"""
-    num = str(random.randint(1,len(quotes)))
-    quote = quotes[num]
-    return f"{quote.strip()}!"
+    num = str(random.randint(1,len(quotes))) # Randomly pick a number between 1 and the number of quotes
+    quote = quotes[num] 
+    return f"{quote.strip()}!" 
         
 
 def format_input(user_input):
-    """This function takes the users input like '  apple  ' 
-and standardizes it to to strip it and capitalizes it and 
-returns the outcome 'Apple'"""
-    return user_input.strip().capitalize()
+    """Formats the user input to match the known food list formatting"""
+    return user_input.strip().capitalize() 
+
 
 
 # For testing purposes don't call main when testing
