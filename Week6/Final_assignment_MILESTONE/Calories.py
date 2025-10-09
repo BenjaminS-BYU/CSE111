@@ -1,7 +1,7 @@
 # THINGS TO ADD:
 # - Add testing
 # - Add a way to make sure a foods code isn't repeated
-# - Add more try/excepts
+# - Add more try/excepts for file handling and user input
 # - Add more safeguards for user input (i.e. no negative grams or calories, or non-numeric input or empty input)
 
 from datetime import datetime
