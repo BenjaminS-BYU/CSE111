@@ -37,7 +37,7 @@ def main():
 
 Menu:
 1. Add Food 
-2. Remove Food (NOT WORKING)
+2. Remove Food
 3. Your Food 
 4. Change Quote 
 5. Exit 
@@ -164,24 +164,26 @@ list of a csv file"""
     print(f"{food} was add to the {name_list} list.")
 
 
-### STILL NOT WORKING
+
 def remove_food(food, food_file):
     """This function takes the food prama and take it out of 
-the list txt file from the food_file"""
+the list csv file from the food_file"""
+    temp_list = []
+    with open(food_file) as food_file_csv:
+        reader = csv.reader(food_file_csv)
+        for line in reader:
+            temp_list.append(line)
+    for line in temp_list:
+        if food in line:
+            temp_list.remove(line)
+            print(f"{food} was removed from the daily foods list.")
+            break
+    with open(food_file, "w", newline='') as food_file_csv:
+        writer = csv.writer(food_file_csv)
+        writer.writerows(temp_list) 
 
-    rows_to_keep = []
-    with open(food_file, "r", newline='') as _food_file:
-        _reader = csv.reader(_food_file)
 
-        for row in _reader:
-            if row and row[0] != food:
-                rows_to_keep.append(row)
-            else:
-                print(f"Removed '{food}' from the list.")
     
-    with open(food_file, "w", newline='') as _food_file:
-        writer = csv.writer(_food_file)
-        writer.writerows(rows_to_keep)
 
 
 
