@@ -150,7 +150,7 @@ def food_dict_maker(csv_file, _dict):
 def todays_date(food_file):
     """This function overwrite the existing food file if the date has changed"""
     today = datetime.today()
-    formatted_date = today.strftime("%Y, %d, %m") # Year, Day, Month
+    formatted_date = today.strftime("%Y, %m, %d ") # Year, Month, Day
 
     # Read the first line of the file to see if the date is the same
     try:
