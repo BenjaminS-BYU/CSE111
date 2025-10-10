@@ -262,7 +262,7 @@ def csv_to_list(csv_file, _list):
 def get_quote(quotes):
     """goes into the quote txt and picks a random quote to show"""
     num = str(random.randint(1,len(quotes))) # Randomly pick a number between 1 and the number of quotes
-    quote = quotes[num] 
+    quote = quotes[f"{num}"] 
     return f"{quote.strip()}!" 
         
 

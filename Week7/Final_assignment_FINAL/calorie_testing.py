@@ -91,14 +91,11 @@ def test_csv_to_list(tmp_path):
 
 
 
-# def test_get_quote():
-#     """Test the get_quote function to ensure it returns a non-empty string."""
-#     quotes = ["The only way to do great work is to love what you do. - Steve Jobs",
-#               "Success is not the key to happiness. Happiness is the key to success. - Albert Schweitzer",
-#               "Don't watch the clock; do what it does. Keep going. - Sam Levenson",]
+def test_get_quote():
+    """Test the get_quote function to ensure it returns a non-empty string."""
+    quotes: dict[str, str] = {"1":"The only way to do great work is to love what you do. - Steve Jobs", "2":"You never win if you always quit"}
     
-#     quote = get_quote(quotes)
-#     assert isinstance(quote, str)
-#     assert len(quote) > 0  # Ensure the quote is not an empty string
+    quote = get_quote(quotes)
+    assert quote == "The only way to do great work is to love what you do. - Steve Jobs" or "You never win if you always quit"
 
 pytest.main(["-v", "--tb=line", "-rN", __file__])
