@@ -25,7 +25,7 @@ Throughout this process I uploaded to github with each update so it was easy to 
 2025-04-10    1.5      finished the architecture and started writing code
 2025-06-10      2      finished up some more functions 
 2025-07-10      2      Did some more function work
-2025-08-10      1      finished up the majority of the first version of the program but had some issues to work out
+2025-08-10      1      finished up the majority of the first version of the program but had some issues to work out. Spent time debugging
 2025-09-10      1      finished the milestone and added some comments to everything, made ready to upload
 misc            2      spent roughly 2 hours showing my program to my wife and talking through it with her and others to get feedback and help with logic
 ----------    FINAL    ---------------------------
