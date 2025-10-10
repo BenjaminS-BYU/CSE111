@@ -67,7 +67,11 @@ Menu:
         # Add food if 1
         elif users_choice == "1":
             food = input("What food would you like to add? ")
-            formatted_user = format_input(food)
+            if food.isalpha() == True:
+                formatted_user = format_input(food)
+            else:
+                print("Food name must only contain letters. Please try again.")
+                continue
 
             # Check if in known list already
             if formatted_user in food_dict:

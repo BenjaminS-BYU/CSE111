@@ -66,7 +66,14 @@ Menu:
 
         # Add food if 1
         elif users_choice == "1":
-            food = input("What food would you like to add? ")
+            food: str = input("What food would you like to add? ")
+            try:
+                if food == "":
+                    raise ValueError("Input cannot be empty")
+            except ValueError as ve:
+                print(f"Error: {ve} ")
+                continue
+            
             formatted_user = format_input(food)
 
             # Check if in known list already
@@ -94,6 +101,14 @@ Menu:
 
         # If 2 start to remove a food item
         elif users_choice == "2":
+            if csv_to_list(DAILY_FOOD,[])== []: # If the daily food list is empty, don't let them remove anything
+                print("Your daily food list is empty, nothing to remove")
+                # Buffer area so the user isn't just blasted with info
+                enter = input("Enter to continue... ")
+                if enter == "":
+                    continue
+                else: 
+                    continue
             show_food()
             rmv_food = input("Which food item would you like to remove? ex. 'peach' ")
             formatted_rvm = format_input(rmv_food)
@@ -102,6 +117,14 @@ Menu:
 
         # If 3 just show the list of foods
         elif users_choice == "3":
+            if csv_to_list(DAILY_FOOD,[])== []: # If the daily food list is empty, don't let them remove anything
+                print("Your daily food list is empty, nothing to show")
+                # Buffer area so the user isn't just blasted with info
+                enter = input("Enter to continue... ")
+                if enter == "":
+                    continue
+                else: 
+                    continue
             show_food()
 
         # If 4 change the quote 
