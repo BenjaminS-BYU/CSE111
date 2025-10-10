@@ -91,7 +91,7 @@ Menu:
                     calories = float(input("What are the calories per 100 grams? "))
                     grams = float(input("How many grams did you have? "))
                     with open(FOOD_DICT, "a", newline='') as _known_foods:
-                        _known_foods.write(f"{food}, {calories:.1f}\n")
+                        _known_foods.write(f"{formatted_user}, {calories:.1f}\n")
                 else:
                     print("Input not supported")
                     continue
@@ -126,6 +126,12 @@ Menu:
                 else: 
                     continue
             show_food()
+            # Buffer area so the user isn't just blasted with info
+            enter = input("Enter to continue... ")
+            if enter == "":
+                continue
+            else:
+                continue
 
         # If 4 change the quote 
         elif users_choice == "4":
@@ -173,7 +179,7 @@ def food_dict_maker(csv_file, _dict):
 def todays_date(food_file):
     """This function overwrite the existing food file if the date has changed"""
     today = datetime.today()
-    formatted_date = today.strftime("%Y, %m, %d ") # Year, Month, Day
+    formatted_date = today.strftime("%Y, %d, %m") # Year, day, month
 
     # Read the first line of the file to see if the date is the same
     try:
@@ -239,12 +245,7 @@ def show_food():
         print(f"{first_index:<{max_name_len}} : {snd_index:<{max_cal_len}} kals")
         total_cals += float(snd_index)
     print(f"\nTotal calories for today is {total_cals:.1f}kals\n")
-    # Buffer area so the user isn't just blasted with info
-    enter = input("Enter to continue... ")
-    if enter == "":
-        return
-    else:
-        return
+    
 
 
 def csv_to_list(csv_file, _list):
