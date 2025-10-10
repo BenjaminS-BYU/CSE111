@@ -264,7 +264,7 @@ def get_quote(quotes):
     num = str(random.randint(1,len(quotes))) # Randomly pick a number between 1 and the number of quotes
     quote = quotes[f"{num}"] 
     return f"{quote.strip()}!" 
-        
+
 
 def format_input(user_input):
     """Formats the user input to match the known food list formatting"""
