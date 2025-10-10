@@ -66,15 +66,15 @@ Menu:
 
         # Add food if 1
         elif users_choice == "1":
-            food: str = input("What food would you like to add? ")
-            try:
-                if food == "":
-                    raise ValueError("Input cannot be empty")
-            except ValueError as ve:
-                print(f"Error: {ve} ")
+            food: str = input("What food would you like to add? (Type 'quit' to return to menu) ")
+            while food == '' or food.isspace() or food.isnumeric(): # Keep asking until they give a valid input
+                print("Input not valid, please try again")
+                food = input("What food would you like to add? (Type 'quit' to return to menu) ")
+                if food == "quit":
+                    break
+            if food == "quit":
                 continue
-            
-            formatted_user = format_input(food)
+            formatted_user: str = format_input(food)
 
             # Check if in known list already
             if formatted_user in food_dict:
@@ -97,7 +97,8 @@ Menu:
                     continue
             # Calculate the total calories given from the grams
             total_cals = float((calories/100)*grams)
-            add_food(DAILY_FOOD,formatted_user,float(total_cals), "daily foods")
+            code = random.randint(999, 10000) # Random code to identify the food uniqueley
+            add_food(DAILY_FOOD,code,formatted_user,float(total_cals), "daily foods")
 
         # If 2 start to remove a food item
         elif users_choice == "2":
@@ -196,10 +197,9 @@ def todays_date(food_file):
 
 
 
-def add_food(food_file, food, total_cals, name_list):
+def add_food(food_file, code, food, total_cals, name_list):
     """This function will allow the user to add a food and its calories to the 
 list of a csv file"""
-    code = random.randint(999, 10000) # Random code to identify the food uniqueley
     with open(food_file, "a", newline='') as food_file:
         # Append the code, food and its calories to the file
         food_file.write(f"{code},{food},{total_cals:.1f}\n")
@@ -223,10 +223,6 @@ def remove_food(food, food_file):
     with open(food_file, "w", newline='') as food_file_csv: # Rewrite the csv file with the temp list without the removed food
         writer = csv.writer(food_file_csv)
         writer.writerows(temp_list) 
-
-
-    
-
 
 
 def show_food():
