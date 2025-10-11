@@ -1,6 +1,3 @@
-# THINGS TO ADD:
-# - Add a way to make sure a foods code isn't repeateds
-
 from datetime import datetime
 import csv
 import random
