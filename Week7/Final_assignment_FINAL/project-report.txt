@@ -29,7 +29,7 @@ Throughout this process I uploaded to github with each update so it was easy to 
 2025-09-10      1      finished the milestone and added some comments to everything, made ready to upload
 misc            2      spent roughly 2 hours showing my program to my wife and talking through it with her and others to get feedback and help with logic
 ----------    FINAL    ---------------------------
-
+Total        11.5
 =============My Time====================
 
 
