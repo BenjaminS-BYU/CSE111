@@ -114,7 +114,16 @@ Menu:
             rmv_food = input("Which food item would you like to remove? ex. 'peach' ")
             formatted_rvm = format_input(rmv_food)
             remove_food(formatted_rvm,DAILY_FOOD)
-            show_food()
+            if csv_to_list(DAILY_FOOD,[])== []: # If the daily food list is empty, don't let them remove anything
+                print("Your daily food list is empty, nothing else to remove")
+                # Buffer area so the user isn't just blasted with info
+                enter = input("Enter to continue... ")
+                if enter == "":
+                    continue
+                else: 
+                    continue
+            else:
+                show_food()
 
         # If 3 just show the list of foods
         elif users_choice == "3":
