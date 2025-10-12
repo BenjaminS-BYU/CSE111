@@ -1,0 +1,72 @@
+Quote of the day:
+"This is the quote"
+===================
+    Menu:
+    1. Add Food
+    2. Remove Food
+    3. Your Food
+    4. Change Quote
+    5. Exit
+
+dis gud
+
+    Add Food:
+    What food would you like to add? Apple
+    How many grams? 100
+
+    Apple -- 100g -- 52kal: Added
+
+    Remove Food:
+    Today's food:
+    1. Apple  ...... Added at 9:50am
+    2. Banana ...... Added at 10am
+
+    What food would you like to remove? 2
+
+    'Banana' has been removed from today's food
+
+    Today's food:
+    1. Apple ...... Added at 9:50am
+
+    Your Food:
+    ---Food Added Today---
+    1. Apple   ...... Added at 9:50am
+    2. Banana  ...... Added at 10am
+    3. Noodles ...... Added at 12am
+
+(For foods not in the database)
+    Add Food:
+    What food would you like to add? Donut
+    How many grams? 100
+    how many kal/g? 434
+
+    Donut -- 100g -- 52kal: Added
+
+functions:
+0. main():
+"""This function holds the print statements and the main 
+loop"""
+
+1. Add Food:
+add_food(food,listtxt):
+"""This function will allow the user to add a food to the 
+list on a txt file"""
+
+2. Remove Food:
+remove_food(food,_list):
+"""This function takes the food prama and take it out of 
+the list txt file from the days list"""
+
+3. Show Food:
+show_food(_list):
+"""This shows the list txt that holds the food added"""
+
+4. Change Quote: 
+change_quote():
+"""goes into the quote txt and picks a random quote to show"""
+
+5. Change the look of the users input:
+format_input(user_input):
+"""This function takes the users input like '  Apple  ' 
+and standardizes it to to strip it and lower case it and 
+returns the outcome 'apple'"""

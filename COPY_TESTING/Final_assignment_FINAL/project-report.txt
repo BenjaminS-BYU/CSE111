@@ -1,0 +1,39 @@
+Student Project Report
+
+Do the following:
+
+1. In the table below, list the dates, amount of time spent, and
+description of the work that you did on your project. Follow the example
+that is in the first row of the table below. Include the time you spent
+doing any of the following:
+    a. discussing your project with your teacher, tutor, or fellow students
+    b. researching by reading articles and watching applicable videos
+    c. designing your project by drawing diagrams and other applicable documents
+    d. writing experimental code
+    d. writing code for your project
+    e. writing test functions
+    f. debugging your code
+    g. any other activity that helped you complete your project
+
+=============My Time====================
+Throughout this process I uploaded to github with each update so it was easy to document 
+            Time Spent
+   Date       (hours)   Description of Work
+----------  ----------  -------------------------
+----------   MILESTONE  -------------------------
+2025-02-10      2      Wrote out the architecture of my program and planned out how to make it all work, with the functions and whatnot. wrote pseudo code and output 
+2025-04-10    1.5      finished the architecture and started writing code
+2025-06-10      2      finished up some more functions 
+2025-07-10      2      Did some more function work
+2025-08-10      1      finished up the majority of the first version of the program but had some issues to work out. Spent time debugging
+2025-09-10      1      finished the milestone and added some comments to everything, made ready to upload
+misc            2      spent roughly 2 hours showing my program to my wife and talking through it with her and others to get feedback and help with logic
+----------    FINAL    ---------------------------
+Total        11.5
+=============My Time====================
+
+
+
+2. In Canvas, submit this completed text file, your Python program, your
+Python test file, and any project data files such as .txt and .csv files and
+link to video walkthrough if needed.
