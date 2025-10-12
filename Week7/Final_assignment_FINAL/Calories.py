@@ -1,9 +1,3 @@
-# THINGS TO ADD:
-# - Add testing
-# - Add a way to make sure a foods code isn't repeated
-# - Add more try/excepts for file handling and user input
-# - Add more safeguards for user input (i.e. no negative grams or calories, or non-numeric input or empty input)
-
 from datetime import datetime
 import csv
 import random
@@ -13,9 +7,9 @@ and will calculate the total caloric intake for that day and add the users input
 date is different."""
 
 # Consts
-FOOD_DICT = "common_foods_with_mealplan.csv"
-DAILY_FOOD = "daily_food_calories.csv"
-QUOTES_TXT = "motivational_weight_loss_quotes.txt"
+FOOD_DICT_FILE_PATH = "common_foods_with_mealplan.csv"
+DAILY_FOOD_FILE_PATH = "daily_food_calories.csv"
+QUOTES_TXT_FILE_PATH = "motivational_weight_loss_quotes.txt"
 KEY_INDEX = 0
 VALUE_INDEX = 1
 
@@ -28,10 +22,10 @@ def main():
     """Gets the main inputs from the user and prints the results
     Also holds the main loop"""
 
-    food_dict_maker(FOOD_DICT,food_dict) # Fills the food dict with known foods
-    quotes_dict = motivation_dict_maker(QUOTES_TXT) # Fills the quote dict with quotes
+    food_dict_maker(FOOD_DICT_FILE_PATH,food_dict) # Fills the food dict with known foods
+    quotes_dict = motivation_dict_maker(QUOTES_TXT_FILE_PATH) # Fills the quote dict with quotes
     # Check if the date has changed and if so, overwrite the daily food file
-    todays_date(DAILY_FOOD)
+    todays_date(DAILY_FOOD_FILE_PATH)
 
 
     quote= get_quote(quotes_dict) # Gets a random quote to start the program
@@ -90,7 +84,7 @@ Menu:
                 elif confirm == "y":
                     calories = float(input("What are the calories per 100 grams? "))
                     grams = float(input("How many grams did you have? "))
-                    with open(FOOD_DICT, "a", newline='') as _known_foods:
+                    with open(FOOD_DICT_FILE_PATH, "a", newline='') as _known_foods:
                         _known_foods.write(f"{formatted_user}, {calories:.1f}\n")
                 else:
                     print("Input not supported")
@@ -98,11 +92,11 @@ Menu:
             # Calculate the total calories given from the grams
             total_cals = float((calories/100)*grams)
             code = random.randint(999, 10000) # Random code to identify the food uniqueley
-            add_food(DAILY_FOOD,code,formatted_user,float(total_cals), "daily foods")
+            add_food(DAILY_FOOD_FILE_PATH,code,formatted_user,float(total_cals), "daily foods")
 
         # If 2 start to remove a food item
         elif users_choice == "2":
-            if csv_to_list(DAILY_FOOD,[])== []: # If the daily food list is empty, don't let them remove anything
+            if csv_to_list(DAILY_FOOD_FILE_PATH,[])== []: # If the daily food list is empty, don't let them remove anything
                 print("Your daily food list is empty, nothing to remove")
                 # Buffer area so the user isn't just blasted with info
                 enter = input("Enter to continue... ")
@@ -113,8 +107,8 @@ Menu:
             show_food()
             rmv_food = input("Which food item would you like to remove? ex. 'peach' ")
             formatted_rvm = format_input(rmv_food)
-            remove_food(formatted_rvm,DAILY_FOOD)
-            if csv_to_list(DAILY_FOOD,[])== []: # If the daily food list is empty, don't let them remove anything
+            remove_food(formatted_rvm,DAILY_FOOD_FILE_PATH)
+            if csv_to_list(DAILY_FOOD_FILE_PATH,[])== []: # If the daily food list is empty, don't let them remove anything
                 print("Your daily food list is empty, nothing else to remove")
                 # Buffer area so the user isn't just blasted with info
                 enter = input("Enter to continue... ")
@@ -127,7 +121,7 @@ Menu:
 
         # If 3 just show the list of foods
         elif users_choice == "3":
-            if csv_to_list(DAILY_FOOD,[])== []: # If the daily food list is empty, don't let them remove anything
+            if csv_to_list(DAILY_FOOD_FILE_PATH,[])== []: # If the daily food list is empty, don't let them remove anything
                 print("Your daily food list is empty, nothing to show")
                 # Buffer area so the user isn't just blasted with info
                 enter = input("Enter to continue... ")
@@ -239,7 +233,7 @@ def show_food():
     daily_list = [] # This list will hold the foods added for the day
     total_cals = 0 # This will hold the total calories for the day
     # Read the daily food file into a list
-    _list = csv_to_list(DAILY_FOOD,daily_list)
+    _list = csv_to_list(DAILY_FOOD_FILE_PATH,daily_list)
 
     max_name_len = max(len(line[1]) for line in _list) # Find the longest food name for formatting purposes
     max_cal_len = max(len(line[2]) for line in _list) # Find the longest calorie count for formatting purposes
