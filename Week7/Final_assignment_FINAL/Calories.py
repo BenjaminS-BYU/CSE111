@@ -91,7 +91,7 @@ Menu:
                     continue
             # Calculate the total calories given from the grams
             total_cals = float((calories/100)*grams)
-            code = random.randint(999, 10000) # Random code to identify the food uniqueley
+            code = random.randint(999, 10000) # Random code to identify the food uniquely
             add_food(DAILY_FOOD_FILE_PATH,code,formatted_user,float(total_cals), "daily foods")
 
         # If 2 start to remove a food item
