@@ -28,8 +28,9 @@ Throughout this process I uploaded to github with each update so it was easy to 
 2025-08-10      1      finished up the majority of the first version of the program but had some issues to work out. Spent time debugging
 2025-09-10      1      finished the milestone and added some comments to everything, made ready to upload
 misc            2      spent roughly 2 hours showing my program to my wife and talking through it with her and others to get feedback and help with logic
+2025-14-10      2      Spent time fixing functions and adding more saftey nets for the user.
 ----------    FINAL    ---------------------------
-Total        11.5
+Total        13.5
 =============My Time====================
 
 
