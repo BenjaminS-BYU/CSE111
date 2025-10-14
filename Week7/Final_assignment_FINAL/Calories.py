@@ -60,10 +60,10 @@ Menu:
 
         # Add food if 1
         elif users_choice == "1":
-            food: str = input("What food would you like to add? (Type 'quit' to return to menu) ")
+            food: str = input("What food would you like to add? (Type 'quit' to return to menu): ")
             while food == '' or food.isspace() or food.isnumeric(): # Keep asking until they give a valid input
                 print("Input not valid, please try again")
-                food = input("What food would you like to add? (Type 'quit' to return to menu) ")
+                food = input("What food would you like to add? (Type 'quit' to return to menu): ")
                 if food == "quit":
                     break
             if food == "quit":
@@ -72,9 +72,13 @@ Menu:
 
             # Check if in known list already
             if formatted_user in food_dict:
-                grams = input("What are the grams? ")
-                if float(grams) <= 0 or grams == '' or grams.isspace(): # Keep asking until they give a valid input
-                    print("Grams must be a positive number, please try again")
+                try:
+                    grams: float = float(input("What are the grams?: "))
+                    if grams <= 0: # Keep asking until they give a valid input
+                            print("Grams and calories must be positive numbers, please try again")
+                            continue
+                except ValueError:
+                    print("Input not valid, please try again")
                     continue
                 calories = float(food_dict[formatted_user])
 
@@ -85,10 +89,14 @@ Menu:
                     continue
                 # If yes then continue to add the grams and calories
                 elif confirm == "y":
-                    calories = float(input("What are the calories per 100 grams? "))
-                    grams = float(input("How many grams did you have? "))
-                    if grams <= 0 or calories <= 0: # Keep asking until they give a valid input
-                        print("Grams and calories must be positive numbers, please try again")
+                    try:
+                        calories = float(input("What are the calories per 100 grams?: "))
+                        grams = float(input("How many grams did you have? "))
+                        if grams <= 0 or calories <= 0: # Keep asking until they give a valid input
+                            print("Grams and calories must be positive numbers, please try again")
+                            continue
+                    except ValueError:
+                        print("Input not valid, please try again")
                         continue
                     with open(FOOD_DICT_FILE_PATH, "a", newline='') as _known_foods:
                         _known_foods.write(f"{formatted_user}, {calories:.1f}\n")
@@ -96,7 +104,7 @@ Menu:
                     print("Input not supported")
                     continue
             # Calculate the total calories given from the grams
-            total_cals = float((calories/100)*float(grams))
+            total_cals = float((calories/100)*grams)
             code = random.randint(999, 10000) # Random code to identify the food uniquely
             add_food(DAILY_FOOD_FILE_PATH,code,formatted_user,float(total_cals), "daily foods")
 
@@ -111,7 +119,7 @@ Menu:
                 else: 
                     continue
             show_food()
-            rmv_food = input("Which food item would you like to remove? ex. 'peach' ")
+            rmv_food = input("Which food item would you like to remove? ex. 'peach': ")
             formatted_rvm = format_input(rmv_food)
             remove_food(formatted_rvm,DAILY_FOOD_FILE_PATH)
             if csv_to_list(DAILY_FOOD_FILE_PATH,[])== []: # If the daily food list is empty, don't let them remove anything
