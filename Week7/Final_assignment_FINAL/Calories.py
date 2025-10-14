@@ -72,7 +72,10 @@ Menu:
 
             # Check if in known list already
             if formatted_user in food_dict:
-                grams = float(input("What are the grams? "))
+                grams = input("What are the grams? ")
+                if float(grams) <= 0 or grams == '' or grams.isspace(): # Keep asking until they give a valid input
+                    print("Grams must be a positive number, please try again")
+                    continue
                 calories = float(food_dict[formatted_user])
 
             # If food is not, confirm they want to add it 
@@ -84,13 +87,16 @@ Menu:
                 elif confirm == "y":
                     calories = float(input("What are the calories per 100 grams? "))
                     grams = float(input("How many grams did you have? "))
+                    if grams <= 0 or calories <= 0: # Keep asking until they give a valid input
+                        print("Grams and calories must be positive numbers, please try again")
+                        continue
                     with open(FOOD_DICT_FILE_PATH, "a", newline='') as _known_foods:
                         _known_foods.write(f"{formatted_user}, {calories:.1f}\n")
                 else:
                     print("Input not supported")
                     continue
             # Calculate the total calories given from the grams
-            total_cals = float((calories/100)*grams)
+            total_cals = float((calories/100)*float(grams))
             code = random.randint(999, 10000) # Random code to identify the food uniquely
             add_food(DAILY_FOOD_FILE_PATH,code,formatted_user,float(total_cals), "daily foods")
 
